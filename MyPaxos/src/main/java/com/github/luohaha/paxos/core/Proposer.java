@@ -1,7 +1,6 @@
 package com.github.luohaha.paxos.core;
 
 import java.io.IOException;
-import java.lang.Thread.State;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,8 +10,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Logger;
 
@@ -24,13 +21,8 @@ import com.github.luohaha.paxos.packet.PreparePacket;
 import com.github.luohaha.paxos.packet.PrepareResponsePacket;
 import com.github.luohaha.paxos.packet.Value;
 import com.github.luohaha.paxos.utils.client.CommClient;
-import com.github.luohaha.paxos.utils.client.CommClientImpl;
 import com.github.luohaha.paxos.utils.serializable.ObjectSerialize;
 import com.github.luohaha.paxos.utils.serializable.ObjectSerializeImpl;
-import com.github.luohaha.paxos.utils.server.CommServer;
-import com.github.luohaha.paxos.utils.server.CommServerImpl;
-import com.github.luohaha.paxos.utils.server.NonBlockServerImpl;
-import com.google.gson.Gson;
 
 public class Proposer {
 	enum Proposer_State {
@@ -191,11 +183,9 @@ public class Proposer {
 	 * @return
 	 * @throws InterruptedException
 	 */
-	public Value submit(Value object) throws InterruptedException {
+	public void submit(Value object) throws InterruptedException {
 		this.readyToSubmitQueue.put(object);
 		beforPrepare();
-		Value value = this.hasSummitQueue.take();
-		return value;
 	}
 
 	/**
