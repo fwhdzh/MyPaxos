@@ -1,19 +1,13 @@
 package com.github.luohaha.paxos.utils.client;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.nio.channels.ClosedChannelException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 
 import com.github.luohaha.client.LightCommClient;
 import com.github.luohaha.connection.Conn;
 import com.github.luohaha.exception.ConnectionCloseException;
-import com.github.luohaha.inter.OnWrite;
 import com.github.luohaha.param.ClientParam;
 
 public class ClientImplByLC4J implements CommClient {
@@ -21,13 +15,13 @@ public class ClientImplByLC4J implements CommClient {
 	private LightCommClient client;
 	private Map<String, Conn> addressToConn = new HashMap<>();
 
-	public ClientImplByLC4J(int ioThreadPoolSize) {
+	public ClientImplByLC4J(int ioThreadPoolSize) throws IOException {
 		// TODO Auto-generated constructor stub
 		this.client = new LightCommClient(ioThreadPoolSize);
 	}
 
 	@Override
-	public void sendTo(String ip, int port, byte[] msg) throws ClosedChannelException {
+	public void sendTo(String ip, int port, byte[] msg) throws IOException {
 		// TODO Auto-generated method stub
 		ClientParam param = new ClientParam();
 		param.setLogLevel(Level.WARNING);

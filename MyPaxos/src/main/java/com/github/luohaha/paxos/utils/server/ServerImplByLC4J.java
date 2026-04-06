@@ -14,7 +14,7 @@ public class ServerImplByLC4J implements CommServer {
 	private LightCommServer server;
 	private ServerParam serverParam;
 	
-	public ServerImplByLC4J(int port, int ioThreadPoolSize) {
+	public ServerImplByLC4J(int port, int ioThreadPoolSize) throws IOException {
 		this.serverParam = new ServerParam("localhost", port);
 		this.serverParam.setLogLevel(Level.WARNING);
 		this.serverParam.setBacklog(128);
